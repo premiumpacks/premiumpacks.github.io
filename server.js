@@ -8,10 +8,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve o index.html para qualquer rota não especificada
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  });
+  const filePath = path.join(__dirname, 'public', req.path);
+    res.sendFile(filePath, (err) => {
+        if (err) {
+              res.sendFile(path.join(__dirname, 'public', 'index.html'));
+                  }
+                    });
+                    });
 
-  app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
-    });
-    
+                    app.listen(port, () => {
+                      console.log(`Servidor rodando em http://localhost:${port}`);
+                      });
+                      
